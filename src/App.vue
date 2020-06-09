@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Header />
+    <Header 
+      :numberCorrect="numCorrect"
+      :numberTotal="numTotal"
+    />
 
     <b-container class="bv-example-row">
       <b-row>
@@ -43,9 +46,12 @@ export default {
         this.index++;
       }
     },
-    // increment(isCorrect) {
-
-    // }
+    increment(isCorrect) {
+      if (isCorrect) {
+        this.numCorrect++
+      }
+      this.numTotal++
+    }
   },
   mounted() {
     fetch('https://opentdb.com/api.php?amount=10&category=27&type=multiple', {

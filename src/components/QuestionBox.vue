@@ -24,6 +24,7 @@
         variant="primary" 
         href="#"
         @click="submitAnswer"
+        :disabled="selectedIndex === null"
       >
         Submit
       </b-button>
@@ -38,7 +39,7 @@ export default {
   data() {
     return {
       selectedIndex: null,
-      shuffleAnswers: []
+      shuffleAnswers: [],
     }
   },
   props: {
@@ -72,10 +73,13 @@ export default {
     },
     submitAnswer() {
       let isCorrect = false;
-      if (this.selectedIndex === this.correctIndex) {
+      if (this.shuffleAnswers[this.selectedIndex] === this.currentQuestion.correct_answer) {
         isCorrect = true
       }
       this.increment(isCorrect)
+      setTimeout(() => {
+        this.next()
+      }, 300)
     }
   },
   // mounted() {
@@ -92,7 +96,7 @@ export default {
   background: gray;
 }
 .btn {
-  margin: 0 5px;
+  margin: 20px 5px;
 }
 .list-group .selected {
   background-color: skyblue;
